@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(RMySQL)\nlibrary(DBI)\ncon <- dbConnect(MySQL(), user=\"root\", password=\"root123!\", dbname=\"EdXInfo\", host=\"localhost\")\ndbListTables(con)\ndbListFields(con, \"TrackingLog\")\ndbReadTable(con, \"TrackingLog\")\nresult <- dbSendQuery(con, \"SELECT * FROM TrackingLog limit 1000\")\nwhile(!dbHasCompleted(result)){\n  chunk <- dbFetch(result)\n  print(nrow(chunk))\n}\n\n# Clear the result\ndbClearResult(result)\n\n# Disconnect from the database\ndbDisconnect(con)\n\n",
+    "created" : 1498313701225.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1210855262",
+    "id" : "7C03239F",
+    "lastKnownWriteTime" : 1498317380,
+    "last_content_update" : 1498317380882,
+    "path" : "D:/R-Project/EdXDataMining/R/ReadMySQL.R",
+    "project_path" : "R/ReadMySQL.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
