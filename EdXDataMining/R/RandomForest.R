@@ -3,7 +3,7 @@ setwd("D:/ResourceDataTest")
 edxData <- read.table("trainData_2017-07-06_23_05_45-2.csv", sep=",", header = TRUE)
 
 # 先把資料區分成 train=0.8, test=0.2
-traindata <- ceiling(0.2*nrow(edxData))
+traindata <- ceiling(0.8*nrow(edxData))
 
 train.index <- sample(1:nrow(edxData), traindata)
 #訓練資料
