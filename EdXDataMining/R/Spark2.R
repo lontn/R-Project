@@ -1,0 +1,2 @@
+library(spark)
+sparkR.session()
