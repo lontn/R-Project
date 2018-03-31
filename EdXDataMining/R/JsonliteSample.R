@@ -1,3 +1,7 @@
 library(jsonlite)
-apiUrl <- "https://www.googleapis.com/youtube/v3/videos?id=9H2KWHmbGA0&key=AIzaSyBybIZ1TwOkZFF9T3guYjjdS72pUsHwMeE&part=contentDetails"
+apiUrl <- "http://ip.360.cn/IPQuery/ipquery?ip=140.134.220.144"
 data <- fromJSON(apiUrl)
+
+
+apiUrl <- paste("http://ip-api.com/json/", "140.134.220.144", sep="")
+city <- fromJSON(apiUrl)
