@@ -23,8 +23,8 @@ tabItem(
                               "Option 2" = "option2")
       ),
       selectInput("videoCode", label = "Video",
-                  choices = c("Video 1" = "Video1",
-                              "Video 2" = "Video2")
+                  choices = c("Video 1" = "Video1A",
+                              "Video 2" = "Video2A")
       )
     )
   )

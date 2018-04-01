@@ -42,8 +42,21 @@ ui <- dashboardPage(
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
   source("server/dashboard-server.R", local = TRUE)
+  #讀資料庫資料
+  source("server/persistentdata.R", local = TRUE)
+  
+  observe({
+    choice <- c(loadCourseData()$DisplayName, loadCourseData()$CourseId)
+    updateSelectInput(
+      session = session,
+      inputId = "courseId",
+      label = "Course",
+      choices = choice
+    )
+  })
+  
   set.seed(122)
   histdata <- rnorm(500)
   
