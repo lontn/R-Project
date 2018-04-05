@@ -9,6 +9,8 @@
 
 library(shiny)
 library(shinydashboard)
+#全域變數設定
+source("global.R", local = TRUE)
 
 ## header content
 header <- dashboardHeader(
@@ -19,6 +21,7 @@ header <- dashboardHeader(
 sidebar <- dashboardSidebar(
   sidebarMenu(
     menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
+    menuItem("ReportInfo", tabName = "report", icon = icon("table")),
     menuItem("Widgets", tabName = "widgets", icon = icon("table"))
   )
 )
@@ -28,8 +31,9 @@ body <- dashboardBody(
   tabItems(
     # First tab content
     source("ui/dashboard.R", local = TRUE)$value,
-    
     # Second tab content
+    source("ui/reportInfo.R", local = TRUE)$value,
+    # Third tab content
     tabItem(tabName = "widgets", h2("Widgets tab content"))
   )
 )
@@ -43,10 +47,11 @@ ui <- dashboardPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
-  source("server/dashboard-server.R", local = TRUE)
   #讀資料庫資料
   source("server/persistentdata.R", local = TRUE)
-  
+  source("server/dashboard-server.R", local = TRUE)
+  source("server/reportInfo-server.R", local = TRUE)
+
   observe({
     choice <- c(loadCourseData()$DisplayName, loadCourseData()$CourseId)
     updateSelectInput(
@@ -56,14 +61,14 @@ server <- function(input, output, session) {
       choices = choice
     )
   })
-  
-  set.seed(122)
-  histdata <- rnorm(500)
-  
-  output$plot1 <- renderPlot({
-    data <- histdata[seq_len(input$slider)]
-    hist(data)
-  })
+
+  # set.seed(122)
+  # histdata <- rnorm(500)
+  # 
+  # output$plot1 <- renderPlot({
+  #   data <- histdata[seq_len(input$slider)]
+  #   hist(data)
+  # })
 }
 
 # Run the application 
