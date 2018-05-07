@@ -52,25 +52,49 @@ server <- function(input, output, session) {
   source("server/dashboard-server.R", local = TRUE)
   source("server/reportInfo-server.R", local = TRUE)
 
+
+  #組課程下拉選單
+  courseOption <- c(loadCourseData()$id)
+  names(courseOption) <- c(loadCourseData()$DisplayName)
+  # View(courseOption)
   observe({
-    choice <- c(loadCourseData()$DisplayName, loadCourseData()$CourseId)
+    # View(loadCourseData())
     updateSelectInput(
       session = session,
       inputId = "courseId",
-      label = "Course",
-      choices = choice
+      label = "課程名稱",
+      choices = courseOption,
+      selected = input$courseId
+    )
+    # print(loadCourseData()$id[1])
+    print(input$courseId)
+    videoCodes <- loadVideoData(input$courseId)
+    # View(videoCodes)
+    
+    if (is.null(videoCodes)) return()
+
+    videoOption <- c(videoCodes$VideoCode)
+    names(videoOption) <- c(videoCodes$VideoTitle)
+    #影片代碼
+    updateSelectInput(
+      session = session,
+      inputId = "videoCode",
+      label = "影片名稱",
+      choices = videoOption,
+      selected = input$videoCode
+    )
+
+    print(input$videoCode)
+    selectUser <- listUserId(input$courseId, input$videoCode)
+    #使用者
+    updateSelectInput(
+      session = session,
+      inputId = "userId",
+      label = "使用者",
+      choices = selectUser$QTY
     )
   })
-
-  # set.seed(122)
-  # histdata <- rnorm(500)
-  # 
-  # output$plot1 <- renderPlot({
-  #   data <- histdata[seq_len(input$slider)]
-  #   hist(data)
-  # })
 }
 
 # Run the application 
 shinyApp(ui = ui, server = server)
-

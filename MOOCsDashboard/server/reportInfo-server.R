@@ -3,7 +3,7 @@ output$report_title <- renderText({
 })
 
 output$report_tbl <- DT::renderDataTable({
-  print(input$courseId2)
+  # print(input$courseId2)
   out <- loadStudentData()
   col_headers <- htmltools::withTags(
     table(

@@ -1,8 +1,11 @@
 library(DBI)
 library(RMySQL)
 library(magrittr)
-library(highcharter)
 library(DT)
+library(highcharter)
 library(dplyr)
+library(wordcloud2)
+library(DiagrammeR)
+
 
 print("XXXXXXXXXXXXXXXXXX")
